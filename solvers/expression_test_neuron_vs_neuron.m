@@ -120,20 +120,20 @@ dB=beta(:);
 dP=pval(:);
 [A,B]=meshgrid(gene_set,gene_set);
 gene_set_cross=cellstr([char(A(:)) repmat('x ',size(A(:))) char(B(:))]);
-plot(dB,-log10(dP),'k.','MarkerSize',10);
+plot(dB,-log10(dP),'k.','MarkerSize',20);
 hold on
-idx=find(and(dB<0,dP<=0.05/(length(gene_set_cross))));
-plot(dB(idx),-log10(dP(idx)),'r.','MarkerSize',14);
-text(dB(idx),-log10(dP(idx)),gene_set_cross(idx),'Color','k','FontSize',14,'FontWeight','bold');
-idx=find(and(dB>0,dP<=0.05/(length(gene_set_cross))));
-plot(dB(idx),-log10(dP(idx)),'b.','MarkerSize',14);
-text(dB(idx),-log10(dP(idx)),gene_set_cross(idx),'Color','k','FontSize',14,'FontWeight','bold');
+idx=find(and(dB<-0.2,dP<=0.05/(length(gene_set_cross))));
+plot(dB(idx),-log10(dP(idx)),'r.','MarkerSize',20);
+text(dB(idx),-log10(dP(idx)),gene_set_cross(idx),'Color','k','FontSize',20,'FontWeight','bold');
+idx=find(and(dB>0.2,dP<=0.05/(length(gene_set_cross))));
+plot(dB(idx),-log10(dP(idx)),'b.','MarkerSize',20);
+text(dB(idx),-log10(dP(idx)),gene_set_cross(idx),'Color','k','FontSize',20,'FontWeight','bold');
 xlabel('Log-fold change')
 ylabel('-log10 p-val');
 axis square
 title('Homophilic + heterophilic CAMs volcano plot')
 legend({'',['Significantly more in ' neuron_set{j} ' and its neighbors'],['Significantly more in ' neuron_set{i} ' and its neighbors']});
-
+set(gca,'FontWeight','bold','FontSize',20,'TickLength',[0 0]);set(gcf,'Color','w');
 sig_genes=gene_set_cross(dP<=0.05/length(gene_set_cross));
 
 % [~,idx_low]=sort(-log10(dP).*(sign(-dB)),'descend','MissingPlacement','last');
